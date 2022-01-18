@@ -1,0 +1,651 @@
+/*======== GLOBAL ===========*/
+:root {
+    --background-body: #1A1B1F;
+    --background-aside: #212329;
+    --background-tbody: #282931;
+    --background-thead: #3A3C47;
+    --red: #E73434;
+    --blue: #3482E7;
+    --white: #fff;
+    --gray: #313237;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 93.75%;
+}
+
+body {
+    background-color: var(--background-body);
+    overflow: auto;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+#container-main {
+    width: min(90vw, 800px);
+    margin: auto;
+}
+
+b {
+    color: var(--red);
+}
+
+a {
+    text-decoration: none;
+}
+
+#loc {
+    border-left: solid 10px var(--red);
+}
+
+.sr-only {
+    visibility: hidden;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+    margin-bottom: 0.3rem;
+    color: var(--white);
+    font-weight: 500;
+    transition: 0.4s;
+}
+
+.result-overlay {
+    display: none;
+    clip: rect(0, 0, 0, 0);
+    visibility: hidden;
+}
+
+label {
+    color: var(--white);
+    margin-bottom: 0.5rem;
+}
+
+
+/*======== NAVBAR ===========*/
+aside {
+    position: fixed;
+    left: 0;
+    width: 6%;
+}
+
+nav {
+    background-color: var(--background-aside);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+ul {
+    margin-bottom: 15.9rem;
+    margin-top: 10.9rem;
+}
+
+
+a li {
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    transition: 0.4s;
+}
+
+a li:hover {
+    border-left: solid 10px var(--red);
+}
+
+li{
+    list-style: none;
+    margin-top: 2rem;
+}
+
+.logo.nav{
+    font: 900 2.5rem 'Noto Sans TC', sans-serif;
+    text-decoration: none;
+    color: #fff;
+    border: none;
+}
+.icon-nav {
+    text-align: center;
+    width: 2.5rem;
+}
+
+
+/*======== MAIN ===========*/
+.container-header, .container-section{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5rem
+}
+
+.container-buttons {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    padding-top: 5rem
+}
+
+.logo {
+    font: 900 4rem 'Noto Sans TC', sans-serif;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.slogan {
+    font: 400 3rem 'Noto Sans JP', sans-serif;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.button {
+    padding: 1rem;
+    width: 18rem;
+    margin-top: 1rem;
+    font: 300 1.8rem 'Noto Sans JP', sans-serif;
+    color: var(--white);
+    transition: 0.4s;
+}
+
+.button:hover{
+    margin-left: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+}
+
+.button.add {
+    background: var(--red);
+}
+
+.button.list {
+    background: var(--gray);
+}
+
+/*======== TABLE ===========*/
+.text-title {
+    color: var(--white);
+    font-size: 2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    display: inline-block;
+}
+.text-title.edit {
+    display: none;
+}
+
+.text-title::before{
+    content: '|';
+    font-size: 2.6rem;
+    color: var(--red);
+}
+
+.text-title.edit::before {
+    color: var(--blue)
+}
+
+.container-table {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+}
+
+#data-table {
+    text-align: center;
+    overflow: auto;
+    border-spacing: 0rem 0.5rem;
+}
+
+table thead th {
+    background-color: var(--background-thead);
+    padding: 1.5rem 2.5rem;
+    font-weight: 500;
+    font-size: 1.2rem;
+    text-align: center;
+    color: var(--white);
+}
+
+table tbody td {
+    background-color: var(--background-tbody);
+    padding: 1rem 1rem;
+    font-weight: 400;
+    font-size: 1rem;
+    text-align: center;
+    color: var(--white);
+}
+
+table tbody td svg {
+    width: 2rem;
+    margin-right: 0.8rem;
+    font-weight: 400;
+    align-items: center;
+    cursor: pointer;
+    stroke: var(--background-thead);
+    transition: 0.4s;
+}
+
+
+.icon-edit:hover {
+    stroke: #3482E7;
+}
+
+.icon-delete:hover {
+    stroke: #E73434;
+}
+
+.result-edit {
+    display: none;
+    flex-direction:column;
+}
+
+/*======== MODAL ===========*/
+.modal-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: #1a1b1f85;
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1;
+    transition: 0.4s;
+}
+
+.modal-overlay.active {
+    opacity: 100;
+    visibility: visible;
+}
+
+.modal {
+    overflow: auto;
+    background-color: var(--background-aside);
+    border: solid 1px var(--red);
+    width: 40%;
+    padding: 2rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-modal {
+    width: 60%;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 1.8rem;
+}
+
+.img-modal {
+    width: 6rem;
+    font-weight: 400;
+    stroke: var(--red);
+}
+
+.modal-buttons {
+    margin-top: 1.8rem;
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-modal {
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    padding: 0.8rem;
+    width: 10rem;
+    margin-top: 1rem;
+    font: 300 1.3rem 'Noto Sans JP', sans-serif;
+    color: var(--white);
+    transition: 0.4s;
+    border: none;
+    cursor: pointer;
+}
+
+.button-modal:hover {
+    margin-top: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+}
+
+.button-modal.cancelar {
+    background-color: var(--gray)
+}
+
+.button-modal.remover {
+    background-color: var(--red)
+}
+
+/*======== FORM ===========*/
+.container-form {
+    margin-top: 3rem;
+}
+
+.container-form form {
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-group {
+    width: 60%;
+    display: flex;
+    flex-direction:column;
+    margin-top: 1rem;
+}
+
+.input-group input {
+    background: var(--background-thead);
+    border: none;
+    outline: none;
+    padding: 1rem;
+    font-size: 1rem;
+    color: var(--white);
+    transition: 0.4s;
+}
+
+.input-group input::placeholder {
+    color: var(--white);
+    opacity:50%;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.input-group input:focus {
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+}
+
+.button-group {
+    margin-top: 2rem;
+}
+
+.button-group button {
+    background-color: var(--red);
+    padding: 0.5rem;
+    width: 18rem;
+    margin-top: 1rem;
+    font: 300 1.5rem 'Noto Sans JP', sans-serif;
+    color: var(--white);
+    transition: 0.4s;
+    border: none;
+    cursor: pointer;
+}
+
+.button-group.edit button {
+    background-color: var(--blue);
+}
+
+.button-group input:hover {
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+    margin-left: 0.5rem;
+}
+
+/*======== RESPONSIVE ===========*/
+
+@media (max-width: 800px){
+
+    /*======== GLOBAL ===========*/
+    html {
+        font-size: 87.5%;
+    }
+    
+    body {
+        height: 200vh;
+    }
+    
+    #loc {
+        border-left: none;
+        border-bottom: solid 5px var(--red);
+    }
+    /*======== NAVBAR ===========*/
+    aside {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+
+    nav {
+        background-color: var(--background-aside);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: start;
+    }
+    
+    ul {
+        margin-top: 0rem;
+        margin-bottom: 0rem;
+        display: flex;
+    }
+
+  
+    a li {
+        padding: 1rem 1.5rem 1rem 1.5rem;
+        transition: 0.4s;
+    }
+
+    li{
+        list-style: none;
+        margin-top: 0rem;
+    }
+    
+    .logo.nav{
+        font: 900 1.3rem 'Noto Sans TC', sans-serif;
+        text-decoration: none;
+        color: #fff;
+        border: none;
+    }
+    .icon-nav {
+        text-align: center;
+        width: 2rem;
+    }
+    a li:hover {
+        border-left: none;
+        border-bottom: solid 5px var(--red);
+    }
+
+    /*======== MAIN ===========*/
+    
+    .container-logo, .container-section, .container-buttons{  
+        padding-top: 2rem
+    }
+    
+    .logo {
+        font: 900 3rem 'Noto Sans TC', sans-serif;
+        text-transform: uppercase;
+        color: #fff;
+    }
+
+    .slogan {
+        font: 400 2rem 'Noto Sans JP', sans-serif;
+        text-transform: uppercase;
+        color: #fff;
+    }
+    
+    .button {
+        background-color: red;
+        padding: 0.5rem;
+        width: 10rem;
+        margin-top: 1rem;
+        font: 300 1.3rem 'Noto Sans JP', sans-serif;
+        color: var(--white);
+        transition: 0.4s;
+    }
+        
+    /*======== TABLE ===========*/
+    .text-title {
+        color: var(--white);
+        font-size: 1.5rem;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+
+    .text-title::before{
+        content: '|';
+        font-size: 2rem;
+        color: var(--red);
+    }
+
+    .container-table {
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+        margin-top: 3rem;
+    }
+
+    #data-table {
+        text-align: center;
+        overflow: auto;
+        border-spacing: 0rem 0.5rem;
+    }
+
+    table thead th {
+        background-color: var(--background-thead);
+        padding: 1rem 2rem;
+        font-weight: 500;
+        font-size: 1rem;
+        text-align: center;
+        color: var(--white);
+    }
+
+    table tbody td {
+        background-color: var(--background-tbody);
+        padding: 1rem 1rem;
+        font-weight: 400;
+        font-size: 1rem;
+        text-align: center;
+        color: var(--white);
+    }
+
+    table tbody td svg {
+        width: 2rem;
+        margin-right: 0.8rem;
+        font-weight: 400;
+        align-items: center;
+        cursor: pointer;
+        stroke: var(--background-thead);
+        transition: 0.4s;
+    }
+        
+    /*======== MODAL ===========*/
+    .modal-overlay {
+        width: 100%;
+        height: 80%;
+        background-color: #1a1b1f85;
+        position: fixed;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: auto;
+    }
+    .modal {
+        overflow: auto;
+        background-color: var(--background-aside);
+        width: 95%;
+        padding: 1rem;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .text-modal {
+        width: 60%;
+        font-size: 1rem;
+        text-align: center;
+        font-weight: 400;
+        color: var(--white);
+        margin-bottom: 1rem;
+    }
+
+    .img-modal {
+        width: 4rem;
+        font-weight: 400;
+        stroke: var(--red);
+    }
+
+    .modal-buttons {
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        flex-direction:row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .button-modal {
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
+        padding: 0.8rem;
+        width: 8rem;
+        margin-top: 1rem;
+        font: 300 1rem 'Noto Sans JP', sans-serif;
+        color: var(--white);
+        transition: 0.4s;
+        border: none;
+        cursor: pointer;
+    }
+
+    .button-modal:hover {
+        margin-top: 1rem;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+    }
+
+    .button-modal.cancelar {
+        background-color: var(--gray)
+    }
+
+    .button-modal.remover {
+        background-color: var(--red)
+    }
+
+
+  
+}
+
+@media (width: 1024px){
+
+    /*======== GLOBAL ===========*/
+    html {
+        font-size: 70.5%;
+    }
+        
+    /*======== MODAL ===========*/
+    .modal-overlay {
+        width: 100%;
+        height: 50%;
+        background-color: #1a1b1f85;
+        position: fixed;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: auto;
+    }
+
+    .modal {
+        overflow: auto;
+        background-color: var(--background-aside);
+        width: 50%;
+        padding: 2rem;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+}
